@@ -98,8 +98,8 @@ int do_test()
 void run_tests()
 {
     test_get_pixel();
-    /* test_set_pixel();
-    test_copy();
+    test_set_pixel();
+    /*test_copy();
     test_shift();
     test_grayscale();
     test_rgb_to_hsv();
