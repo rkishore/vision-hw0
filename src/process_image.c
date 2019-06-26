@@ -126,7 +126,28 @@ image rgb_to_grayscale(image im)
 
 void shift_image(image im, int c, float v)
 {
-    // TODO Fill this in
+  int src_index = -1, i, j;
+  
+  //printf("shift_image: Image characteristics, c=%d, w=%d, h=%d\n", im.c, im.w, im.h);
+  
+  if (c < im.c)
+    {
+
+      for(j = 0; j < im.h; ++j){
+	for(i = 0; i < im.w; ++i){
+	  src_index = (c * (im.w * im.h)) + (j * im.w) + (i);
+	  //printf("shift_image: c=%d,x=%d,y=%d, dst_index = %d, old pixel value: %0.1f, new value: %0.1f\n", c, x, y, dst_index, im.data[dst_index], v);
+	  im.data[src_index] += v;
+	}
+      }
+    }
+  else
+    {
+      printf("shift_image: Invalid dimensions passed in. Returning without doing anything\n");
+      return;
+    }
+    
+    
 }
 
 void clamp_image(image im)
