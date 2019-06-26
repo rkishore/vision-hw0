@@ -144,15 +144,28 @@ void shift_image(image im, int c, float v)
   else
     {
       printf("shift_image: Invalid dimensions passed in. Returning without doing anything\n");
-      return;
     }
     
-    
+  return;
 }
 
 void clamp_image(image im)
 {
-    // TODO Fill this in
+    int i, j, k, src_index;
+    for(k = 0; k < im.c; ++k){
+      for(j = 0; j < im.h; ++j){
+	for(i = 0; i < im.w; ++i){
+	  // dst_index = (c * (im.w * im.h)) + (y * im.w) + (x);
+	  src_index = (k * (im.w * im.h)) + (j * im.w) + (i);
+	  if (im.data[src_index] < 0.0)
+	    im.data[src_index] = 0.0;
+	  else if (im.data[src_index] > 1.0)
+	    im.data[src_index] = 1.0;
+	}
+      }
+    }
+    
+    return;
 }
 
 
