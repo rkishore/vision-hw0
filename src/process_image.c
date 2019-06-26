@@ -96,9 +96,31 @@ image copy_image(image im)
 
 image rgb_to_grayscale(image im)
 {
+    int i,j,k, dst_index, src_index;
     assert(im.c == 3);
     image gray = make_image(im.w, im.h, 1);
-    // TODO Fill this in
+
+    memset(gray.data, 0, im.w * im.h * sizeof(float));
+
+    for(k = 0; k < im.c; ++k){
+      for(j = 0; j < im.h; ++j){
+	for(i = 0; i < im.w; ++i){
+	  // dst_index = (c * (im.w * im.h)) + (y * im.w) + (x);
+	  src_index = (k * (im.w * im.h)) + (j * im.w) + (i);
+	  dst_index = (0 * (im.w * im.h)) + (j * im.w) + (i);
+	  if (k == 0) // R
+	    gray.data[dst_index] += (0.299 * im.data[src_index]);
+	  else if (k == 1) // G
+	    gray.data[dst_index] += (0.587 * im.data[src_index]);
+	  else if (k == 2) // B
+	    gray.data[dst_index] += (0.114 * im.data[src_index]);
+	  
+	  // printf("c=%d,x=%d,y=%d, src_index=%d, dst_index=%d, im.data=%0.1f, gray.data=%0.1f\n",
+	  //        k, i, j, src_index, dst_index, im.data[dst_index], gray.data[dst_index]);
+	}
+      }
+    }
+    
     return gray;
 }
 
